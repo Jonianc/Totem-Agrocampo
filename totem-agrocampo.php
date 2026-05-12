@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Tótem Agrocampo
  * Description: Base técnica inicial para el sistema de autoatención Tótem Agrocampo.
- * Version: 0.3.1
+ * Version: 0.3.2
  * Author: Agrocampo
  * Text Domain: totem-agrocampo
  * Domain Path: /languages
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('AGP_TOTEM_VERSION', '0.3.1');
+define('AGP_TOTEM_VERSION', '0.3.2');
 define('AGP_TOTEM_FILE', __FILE__);
 define('AGP_TOTEM_PATH', plugin_dir_path(__FILE__));
 define('AGP_TOTEM_URL', plugin_dir_url(__FILE__));

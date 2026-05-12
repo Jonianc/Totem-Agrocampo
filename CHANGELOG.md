@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.2 - 2026-05-12
+- Validación backend de sucursal contra listado permitido en settings.
+- Validación mínima de WhatsApp chileno y normalización de guardado a formato `+569XXXXXXXX`.
+- Generación de ticket ajustada a fecha local de WordPress (`current_time('Ymd')`).
+
 ## 0.3.1 - 2026-05-12
 - Corrección del flujo de confirmación para impedir navegación visual a éxito sin envío real.
 - Pantalla final solo visible con ticket real generado desde guardado exitoso.

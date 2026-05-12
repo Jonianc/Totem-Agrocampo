@@ -56,7 +56,7 @@ class AGP_Totem_Leads_Repository {
     }
 
     private function generate_unique_ticket_number() {
-        $date_prefix = gmdate('Ymd');
+        $date_prefix = current_time('Ymd');
         $prefix = 'AGP-' . $date_prefix . '-';
 
         $last_ticket = $this->wpdb->get_var(

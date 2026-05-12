@@ -39,6 +39,8 @@ class AGP_Totem_Frontend_Controller {
         }
 
         $state['active_screen'] = 'form';
+        $settings = AGP_Totem_Settings::get_all();
+        $allowed_branches = array_map('strval', array_values($settings['branches']));
 
         if (!isset($_POST['agp_totem_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['agp_totem_nonce'])), 'agp_totem_submit_lead')) {
             $state['errors'][] = __('No pudimos validar la sesión del formulario. Intenta nuevamente.', 'totem-agrocampo');
@@ -77,9 +79,13 @@ class AGP_Totem_Frontend_Controller {
         }
         if ($whatsapp === '') {
             $state['errors'][] = __('El WhatsApp es obligatorio.', 'totem-agrocampo');
+        } elseif (!$this->is_valid_chile_whatsapp($whatsapp)) {
+            $state['errors'][] = __('Ingresa un WhatsApp válido.', 'totem-agrocampo');
         }
         if ($branch === '') {
             $state['errors'][] = __('La sucursal es obligatoria.', 'totem-agrocampo');
+        } elseif (!in_array($branch, $allowed_branches, true)) {
+            $state['errors'][] = __('La sucursal seleccionada no es válida.', 'totem-agrocampo');
         }
         if ($inquiry === '') {
             $state['errors'][] = __('El tipo de consulta es obligatorio.', 'totem-agrocampo');
@@ -134,6 +140,11 @@ class AGP_Totem_Frontend_Controller {
         }
 
         return $digits;
+    }
+
+
+    private function is_valid_chile_whatsapp($value) {
+        return (bool) preg_match('/^\+569\d{8}$/', (string) $value);
     }
 
     private function get_ip_partial() {
