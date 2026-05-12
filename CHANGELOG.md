@@ -6,6 +6,7 @@
 - Persistencia en `agp_totem_leads` mediante repositorio centralizado.
 - Generación y almacenamiento de ticket único legible (`AGP-YYYYMMDD-XXXX`).
 - Pantalla final conectada a ticket real y manejo seguro de errores de validación/guardado.
+- Normalización de distribución: usar carpeta raíz estable `totem-agrocampo` y resguardo defensivo para evitar redeclare de `agp_totem_init()`.
 
 ## 0.2.1 - 2026-05-12
 - Ajuste menor de Etapa 2 en frontend standalone.

@@ -27,8 +27,10 @@ require_once AGP_TOTEM_PATH . 'includes/class-plugin.php';
 
 register_activation_hook(AGP_TOTEM_FILE, array('AGP_Totem_Installer', 'activate'));
 
-function agp_totem_init() {
-    $plugin = new AGP_Totem_Plugin();
-    $plugin->init();
+if (!function_exists('agp_totem_init')) {
+    function agp_totem_init() {
+        $plugin = new AGP_Totem_Plugin();
+        $plugin->init();
+    }
 }
 add_action('plugins_loaded', 'agp_totem_init');
