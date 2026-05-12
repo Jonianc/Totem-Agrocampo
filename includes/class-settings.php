@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) {
 
 class AGP_Totem_Settings {
     const OPTION_KEY = 'agp_totem_settings';
+    const FLUSH_REWRITE_OPTION = 'agp_totem_flush_rewrite';
 
     public static function defaults() {
         return array(
@@ -30,6 +31,7 @@ class AGP_Totem_Settings {
     public static function update($input) {
         $settings = self::get_all();
 
+        $old_route = $settings['frontend_route'];
         $settings['frontend_route'] = self::sanitize_route(isset($input['frontend_route']) ? $input['frontend_route'] : '');
         $settings['welcome_message'] = sanitize_textarea_field(isset($input['welcome_message']) ? $input['welcome_message'] : '');
         $settings['closing_message'] = sanitize_textarea_field(isset($input['closing_message']) ? $input['closing_message'] : '');
@@ -49,6 +51,11 @@ class AGP_Totem_Settings {
         );
 
         update_option(self::OPTION_KEY, $settings);
+
+        if ($old_route !== $settings['frontend_route']) {
+            update_option(self::FLUSH_REWRITE_OPTION, 1);
+        }
+
         return $settings;
     }
 

@@ -14,3 +14,11 @@
 - Verificación explícita de permisos `manage_options` en todas las pantallas admin.
 - Contadores del resumen con helper seguro y validación de existencia de tabla.
 - Documentación en `uninstall.php` sobre conservación de tablas.
+
+## 0.2.0 - 2026-05-12
+- Implementación de Etapa 2: frontend standalone inicial tipo kiosk.
+- Router con rewrite rule para ruta configurable y render de layout propio del plugin.
+- Carga de assets kiosk solo en la ruta del tótem.
+- Flujo visual por pasos (inicio, categoría, destacados, formulario placeholder, confirmación placeholder, final placeholder).
+- Navegación con botones Inicio/Volver, indicador de progreso y timeout de inactividad con reinicio automático.
+- Sin persistencia de datos ni envío de correos en esta etapa.

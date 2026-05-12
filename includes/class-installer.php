@@ -14,6 +14,8 @@ class AGP_Totem_Installer {
         if (false === get_option(AGP_Totem_Settings::OPTION_KEY, false)) {
             add_option(AGP_Totem_Settings::OPTION_KEY, AGP_Totem_Settings::defaults());
         }
+
+        AGP_Totem_Router::flush_rules();
     }
 
     public static function create_tables() {
