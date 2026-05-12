@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 - 2026-05-12
+- Implementación de Etapa 4 en admin: listado real de atenciones desde `agp_totem_leads`.
+- Filtros GET sanitizados por fecha, sucursal, estado, tipo de consulta y búsqueda por ticket/nombre/WhatsApp/comuna-sector.
+- Paginación en admin (20 por página) preservando filtros activos.
+- Cambio de estado de atención con validación de capability, nonce y sanitización.
+- Vista de detalle de atención con datos completos, notas internas y asignación opcional a administrador.
+- Repositorio ampliado para listado paginado, conteo, filtros, detalle y actualizaciones (estado / notas / asignado).
+
 ## 0.3.2 - 2026-05-12
 - Validación backend de sucursal contra listado permitido en settings.
 - Validación mínima de WhatsApp chileno y normalización de guardado a formato `+569XXXXXXXX`.
