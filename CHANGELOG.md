@@ -22,3 +22,9 @@
 - Flujo visual por pasos (inicio, categoría, destacados, formulario placeholder, confirmación placeholder, final placeholder).
 - Navegación con botones Inicio/Volver, indicador de progreso y timeout de inactividad con reinicio automático.
 - Sin persistencia de datos ni envío de correos en esta etapa.
+
+## 0.2.1 - 2026-05-12
+- Ajuste menor de Etapa 2 en frontend standalone.
+- Limpieza explícita del estado temporal al usar Inicio/Reiniciar atención.
+- Timeout: ocultar aviso de inactividad inmediatamente al detectar actividad y reiniciar contador.
+- Mensaje admin al cambiar ruta frontend manteniendo flush controlado.

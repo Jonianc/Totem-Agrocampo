@@ -6,14 +6,20 @@
   let timeoutTimer=null;
   let warningTimer=null;
 
-  function goHome(){
-    const homeBtn=document.querySelector('[data-action="home"]');
-    if(homeBtn){homeBtn.click();}
+  function hideWarning(){
     if(warningEl){warningEl.classList.add('is-hidden');}
   }
 
+  function goHome(){
+    const homeBtn=document.querySelector('[data-action="home"]');
+    if(homeBtn){homeBtn.click();}
+    hideWarning();
+  }
+
   function startTimers(){
-    clearTimeout(timeoutTimer);clearTimeout(warningTimer);
+    hideWarning();
+    clearTimeout(timeoutTimer);
+    clearTimeout(warningTimer);
     warningTimer=setTimeout(function(){
       if(warningEl){warningEl.textContent=cfg.warningText||'Reinicio por inactividad';warningEl.classList.remove('is-hidden');}
     },Math.max(0,timeoutMs-warningMs));

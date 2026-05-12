@@ -71,8 +71,14 @@ class AGP_Totem_Admin_Menu {
         if ('POST' === $_SERVER['REQUEST_METHOD'] && isset($_POST['agp_totem_settings_nonce'])) {
             check_admin_referer('agp_totem_save_settings', 'agp_totem_settings_nonce');
             $input = wp_unslash($_POST);
-            AGP_Totem_Settings::update($input);
+            $current = AGP_Totem_Settings::get_all();
+            $updated = AGP_Totem_Settings::update($input);
+
             add_settings_error('agp_totem_messages', 'agp_totem_message', __('Configuración guardada.', 'totem-agrocampo'), 'updated');
+
+            if ($current['frontend_route'] !== $updated['frontend_route']) {
+                add_settings_error('agp_totem_messages', 'agp_totem_route_updated', __('Ruta frontend actualizada. Los enlaces del tótem usarán la nueva ruta.', 'totem-agrocampo'), 'updated');
+            }
         }
 
         $settings = AGP_Totem_Settings::get_all();

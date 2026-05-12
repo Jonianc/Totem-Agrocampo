@@ -6,6 +6,13 @@
   const history=['home'];
   let selectedType='';
 
+  function clearFlowState(){
+    selectedType='';
+    history.splice(0,history.length,'home');
+    const selected=document.querySelector('.agp-selected-type');
+    if(selected){selected.textContent='';}
+  }
+
   function show(screen){
     screens.forEach(s=>s.classList.toggle('is-hidden',s.dataset.screen!==screen));
     progress.forEach(p=>p.classList.toggle('is-active',p.dataset.step===screen));
@@ -21,7 +28,7 @@
 
     if(btn.dataset.type){selectedType=btn.dataset.type;}
     if(btn.dataset.action==='home'){
-      history.splice(0,history.length,'home');
+      clearFlowState();
       show('home');
       return;
     }
@@ -33,5 +40,6 @@
     if(next){history.push(next);show(next);}
   });
 
+  clearFlowState();
   show('home');
 })();
