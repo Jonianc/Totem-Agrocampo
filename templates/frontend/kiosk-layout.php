@@ -8,7 +8,7 @@
     <?php wp_head(); ?>
 </head>
 <body class="agp-kiosk-body">
-<main class="agp-kiosk-app" data-route="<?php echo esc_attr($view_data['route']); ?>">
+<main class="agp-kiosk-app" data-route="<?php echo esc_attr($view_data['route']); ?>" data-initial-screen="<?php echo esc_attr($view_data['active_screen'] ?? 'home'); ?>">
     <header class="agp-kiosk-header">
         <div class="agp-brand">AGROCAMPO</div>
         <div class="agp-header-actions">

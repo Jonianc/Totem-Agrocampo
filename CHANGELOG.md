@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 - 2026-05-12
+- Implementación de Etapa 3: formulario frontend funcional con envío real de atenciones.
+- Validación backend con nonce, sanitización de campos y validaciones obligatorias.
+- Persistencia en `agp_totem_leads` mediante repositorio centralizado.
+- Generación y almacenamiento de ticket único legible (`AGP-YYYYMMDD-XXXX`).
+- Pantalla final conectada a ticket real y manejo seguro de errores de validación/guardado.
+
 ## 0.2.1 - 2026-05-12
 - Ajuste menor de Etapa 2 en frontend standalone.
 - Limpieza explícita del estado temporal al usar Inicio/Reiniciar atención.
