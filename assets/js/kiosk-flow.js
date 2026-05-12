@@ -5,12 +5,20 @@
   const progress=[...document.querySelectorAll('.agp-progress-step')];
   const history=['home'];
   let selectedType='';
+  let selectedProduct='';
+  const initialScreen=app.dataset.initialScreen||'home';
+  const hasTicket=app.dataset.hasTicket==='1';
 
   function clearFlowState(){
     selectedType='';
+    selectedProduct='';
     history.splice(0,history.length,'home');
     const selected=document.querySelector('.agp-selected-type');
     if(selected){selected.textContent='';}
+    const productField=document.getElementById('agp-selected-product');
+    if(productField){productField.value='';}
+    const form=document.querySelector('.agp-totem-form');
+    if(form){form.reset();}
   }
 
   function show(screen){
@@ -27,6 +35,11 @@
     if(!btn){return;}
 
     if(btn.dataset.type){selectedType=btn.dataset.type;}
+    if(btn.dataset.product){
+      selectedProduct=btn.dataset.product;
+      const productField=document.getElementById('agp-selected-product');
+      if(productField){productField.value=selectedProduct;}
+    }
     if(btn.dataset.action==='home'){
       clearFlowState();
       show('home');
@@ -37,9 +50,18 @@
       return;
     }
     const next=btn.dataset.next;
-    if(next){history.push(next);show(next);}
+    if(next==='success' && !hasTicket){return;}
+    if(next){history.push(next);show(next);
+      if(next==='form'){
+        const inquiry=document.getElementById('agp-inquiry-type');
+        if(inquiry && !inquiry.value && selectedType){inquiry.value=selectedType;}
+      }
+    }
   });
 
-  clearFlowState();
-  show('home');
+  show(initialScreen);
+  if((initialScreen==='success' && !hasTicket) || (initialScreen!=='success' && initialScreen!=='form')){
+    clearFlowState();
+    show('home');
+  }
 })();

@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.3.2 - 2026-05-12
+- Validación backend de sucursal contra listado permitido en settings.
+- Validación mínima de WhatsApp chileno y normalización de guardado a formato `+569XXXXXXXX`.
+- Generación de ticket ajustada a fecha local de WordPress (`current_time('Ymd')`).
+
+## 0.3.1 - 2026-05-12
+- Corrección del flujo de confirmación para impedir navegación visual a éxito sin envío real.
+- Pantalla final solo visible con ticket real generado desde guardado exitoso.
+- Autopoblado de tipo de consulta desde selección inicial, manteniendo edición manual.
+- Campo sucursal cambiado a selector basado en sucursales configuradas en settings.
+
+## 0.3.0 - 2026-05-12
+- Implementación de Etapa 3: formulario frontend funcional con envío real de atenciones.
+- Validación backend con nonce, sanitización de campos y validaciones obligatorias.
+- Persistencia en `agp_totem_leads` mediante repositorio centralizado.
+- Generación y almacenamiento de ticket único legible (`AGP-YYYYMMDD-XXXX`).
+- Pantalla final conectada a ticket real y manejo seguro de errores de validación/guardado.
+- Normalización de distribución: usar carpeta raíz estable `totem-agrocampo` y resguardo defensivo para evitar redeclare de `agp_totem_init()`.
+
 ## 0.2.1 - 2026-05-12
 - Ajuste menor de Etapa 2 en frontend standalone.
 - Limpieza explícita del estado temporal al usar Inicio/Reiniciar atención.
