@@ -39,28 +39,39 @@ class AGP_Totem_Admin_Menu {
     }
 
     public function render_summary_page() {
-        global $wpdb;
+        $this->assert_manage_options();
+
         $settings = AGP_Totem_Settings::get_all();
         $counts = array(
-            'leads' => (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}agp_totem_leads"),
-            'products' => (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}agp_totem_products"),
-            'categories' => (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}agp_totem_categories"),
+            'leads' => $this->get_table_count('agp_totem_leads'),
+            'products' => $this->get_table_count('agp_totem_products'),
+            'categories' => $this->get_table_count('agp_totem_categories'),
         );
         include AGP_TOTEM_PATH . 'templates/admin/summary.php';
     }
 
-    public function render_leads_page() { include AGP_TOTEM_PATH . 'templates/admin/leads.php'; }
-    public function render_products_page() { include AGP_TOTEM_PATH . 'templates/admin/products.php'; }
-    public function render_categories_page() { include AGP_TOTEM_PATH . 'templates/admin/categories.php'; }
+    public function render_leads_page() {
+        $this->assert_manage_options();
+        include AGP_TOTEM_PATH . 'templates/admin/leads.php';
+    }
+
+    public function render_products_page() {
+        $this->assert_manage_options();
+        include AGP_TOTEM_PATH . 'templates/admin/products.php';
+    }
+
+    public function render_categories_page() {
+        $this->assert_manage_options();
+        include AGP_TOTEM_PATH . 'templates/admin/categories.php';
+    }
 
     public function render_settings_page() {
-        if (!current_user_can('manage_options')) {
-            wp_die(esc_html__('No tienes permisos para acceder a esta sección.', 'totem-agrocampo'));
-        }
+        $this->assert_manage_options();
 
         if ('POST' === $_SERVER['REQUEST_METHOD'] && isset($_POST['agp_totem_settings_nonce'])) {
             check_admin_referer('agp_totem_save_settings', 'agp_totem_settings_nonce');
-            AGP_Totem_Settings::update($_POST);
+            $input = wp_unslash($_POST);
+            AGP_Totem_Settings::update($input);
             add_settings_error('agp_totem_messages', 'agp_totem_message', __('Configuración guardada.', 'totem-agrocampo'), 'updated');
         }
 
@@ -69,5 +80,28 @@ class AGP_Totem_Admin_Menu {
         include AGP_TOTEM_PATH . 'templates/admin/settings.php';
     }
 
-    public function render_design_page() { include AGP_TOTEM_PATH . 'templates/admin/design.php'; }
+    public function render_design_page() {
+        $this->assert_manage_options();
+        include AGP_TOTEM_PATH . 'templates/admin/design.php';
+    }
+
+    private function assert_manage_options() {
+        if (!current_user_can('manage_options')) {
+            wp_die(esc_html__('No tienes permisos para acceder a esta sección.', 'totem-agrocampo'));
+        }
+    }
+
+    private function get_table_count($table_name) {
+        global $wpdb;
+
+        $table = $wpdb->prefix . $table_name;
+        $exists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table));
+
+        if ($exists !== $table) {
+            return 0;
+        }
+
+        return (int) $wpdb->get_var("SELECT COUNT(*) FROM {$table}");
+    }
 }
+
