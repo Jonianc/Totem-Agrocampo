@@ -7,6 +7,7 @@
   let selectedType='';
   let selectedProduct='';
   const initialScreen=app.dataset.initialScreen||'home';
+  const hasTicket=app.dataset.hasTicket==='1';
 
   function clearFlowState(){
     selectedType='';
@@ -49,11 +50,17 @@
       return;
     }
     const next=btn.dataset.next;
-    if(next){history.push(next);show(next);}
+    if(next==='success' && !hasTicket){return;}
+    if(next){history.push(next);show(next);
+      if(next==='form'){
+        const inquiry=document.getElementById('agp-inquiry-type');
+        if(inquiry && !inquiry.value && selectedType){inquiry.value=selectedType;}
+      }
+    }
   });
 
   show(initialScreen);
-  if(initialScreen!=='success' && initialScreen!=='form'){
+  if((initialScreen==='success' && !hasTicket) || (initialScreen!=='success' && initialScreen!=='form')){
     clearFlowState();
     show('home');
   }

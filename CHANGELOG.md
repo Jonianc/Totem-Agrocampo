@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1 - 2026-05-12
+- Corrección del flujo de confirmación para impedir navegación visual a éxito sin envío real.
+- Pantalla final solo visible con ticket real generado desde guardado exitoso.
+- Autopoblado de tipo de consulta desde selección inicial, manteniendo edición manual.
+- Campo sucursal cambiado a selector basado en sucursales configuradas en settings.
+
 ## 0.3.0 - 2026-05-12
 - Implementación de Etapa 3: formulario frontend funcional con envío real de atenciones.
 - Validación backend con nonce, sanitización de campos y validaciones obligatorias.

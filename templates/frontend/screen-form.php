@@ -28,10 +28,15 @@
             <input type="text" name="customer_location" value="<?php echo esc_attr($view_data['form_values']['customer_location'] ?? ''); ?>">
         </label>
         <label>Sucursal
-            <input type="text" name="branch" required value="<?php echo esc_attr($view_data['form_values']['branch'] ?? ''); ?>">
+            <select name="branch" required>
+                <option value="">Selecciona sucursal</option>
+                <?php foreach (($view_data['branches'] ?? array()) as $branch_label) : ?>
+                    <option value="<?php echo esc_attr((string) $branch_label); ?>" <?php selected(($view_data['form_values']['branch'] ?? ''), (string) $branch_label); ?>><?php echo esc_html((string) $branch_label); ?></option>
+                <?php endforeach; ?>
+            </select>
         </label>
         <label>Tipo de consulta
-            <input type="text" name="inquiry_type" required value="<?php echo esc_attr($view_data['form_values']['inquiry_type'] ?? ''); ?>">
+            <input type="text" id="agp-inquiry-type" name="inquiry_type" required value="<?php echo esc_attr($view_data['form_values']['inquiry_type'] ?? ''); ?>">
         </label>
         <label>Comentario adicional
             <textarea name="comment" rows="3"><?php echo esc_textarea($view_data['form_values']['comment'] ?? ''); ?></textarea>

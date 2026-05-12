@@ -20,6 +20,7 @@ class AGP_Totem_Frontend_Controller {
             'form_values' => $submission['form_values'],
             'ticket_number' => $submission['ticket_number'],
             'active_screen' => $submission['active_screen'],
+            'branches' => $settings['branches'],
         );
 
         include AGP_TOTEM_PATH . 'templates/frontend/kiosk-layout.php';
